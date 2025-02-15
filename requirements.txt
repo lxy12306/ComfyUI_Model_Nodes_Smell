@@ -1,0 +1,7 @@
+torch
+torchvision
+qwen-vl-utils
+numpy
+pillow
+#git+https://github.com/huggingface/transformers
+
