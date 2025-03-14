@@ -1,6 +1,7 @@
 # ComfyUI Qwen2.5VL
 ## Update
 Suppport Qwen2.5VL_IMAGE in ComfyUi
+Suppport Qwen2.5VL_VEDIO in ComfyUi
 
 ## Installation
 
@@ -26,4 +27,5 @@ To install ComfyUI_Model_Nodes_Smell in `ComfyUI\custom_nodes\`, follow these st
     ```bash
     https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-7B-Instruct
     https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-3B-Instruct
+    https://www.modelscope.cn/models/Qwen/Qwen2.5-VL-72B-Instruct-AWQ
     ```

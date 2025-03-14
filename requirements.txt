@@ -1,7 +1,10 @@
 torch
 torchvision
 qwen-vl-utils
+opencv-python
 numpy
 pillow
-#git+https://github.com/huggingface/transformers
-
+pynvml
+psutil
+autoawq >= 0.1.8
+transformers>=4.49.0
