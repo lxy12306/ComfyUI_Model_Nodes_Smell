@@ -1,5 +1,7 @@
 import torch
 import json
+import os
+import logging
 
 
 def is_bf16_supported(device):
@@ -16,6 +18,24 @@ def is_bf16_supported(device):
         torch.cuda.is_available() and
         torch.cuda.get_device_capability(device)[0] >= 8
     )
+
+def read_json_file(dir_name, file_name):
+        # Try to load existing file with different encodings
+        encodings = ['utf-8', 'utf-8-sig', 'latin1', 'cp1252', 'gbk']
+        file_path = os.path.join(
+            dir_name, file_name
+        )
+        for encoding in encodings:
+            try:
+                with open(file_path, 'r', encoding=encoding) as f:
+                    content = f.read()
+                    data = json.loads(content)
+                    return data
+            except Exception:
+                continue
+
+        logging.error(f"Error: Failed to load {file_path} with any supported encoding")
+        return {}
 
 def read_json_value(file_path, key, expected_type=None):
     """
@@ -42,5 +62,3 @@ def read_json_value(file_path, key, expected_type=None):
     except json.JSONDecodeError:
         print("Error: Failed to decode JSON from the file.")
         return None
-
-
