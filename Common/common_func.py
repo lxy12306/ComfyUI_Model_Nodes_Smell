@@ -37,6 +37,8 @@ def read_json_file(dir_name, file_name):
         logging.error(f"Error: Failed to load {file_path} with any supported encoding")
         return {}
 
+
+
 def read_json_value(file_path, key, expected_type=None):
     """
     从 JSON 文件中读取指定键的值并检查其类型。
@@ -59,6 +61,7 @@ def read_json_value(file_path, key, expected_type=None):
     except FileNotFoundError:
         print(f"Error: The file at {file_path} was not found.")
         return None
-    except json.JSONDecodeError:
-        print("Error: Failed to decode JSON from the file.")
+    except json.JSONDecodeError as e:
+        print(f"Error: Failed to decode JSON from the file: {file_path}")
+        print(f"具体错误信息: {e}")
         return None
