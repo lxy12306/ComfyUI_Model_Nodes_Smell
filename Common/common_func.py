@@ -20,22 +20,22 @@ def is_bf16_supported(device):
     )
 
 def read_json_file(dir_name, file_name):
-        # Try to load existing file with different encodings
-        encodings = ['utf-8', 'utf-8-sig', 'latin1', 'cp1252', 'gbk']
-        file_path = os.path.join(
-            dir_name, file_name
-        )
-        for encoding in encodings:
-            try:
-                with open(file_path, 'r', encoding=encoding) as f:
-                    content = f.read()
-                    data = json.loads(content)
-                    return data
-            except Exception:
-                continue
+    # Try to load existing file with different encodings
+    encodings = ['utf-8', 'utf-8-sig', 'latin1', 'cp1252', 'gbk']
+    file_path = os.path.join(
+        dir_name, file_name
+    )
+    for encoding in encodings:
+        try:
+            with open(file_path, 'r', encoding=encoding) as f:
+                content = f.read()
+                data = json.loads(content)
+                return data
+        except Exception:
+            continue
 
-        logging.error(f"Error: Failed to load {file_path} with any supported encoding")
-        return {}
+    logging.error(f"Error: Failed to load {file_path} with any supported encoding")
+    return {}
 
 
 

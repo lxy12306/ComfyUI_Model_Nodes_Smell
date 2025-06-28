@@ -192,7 +192,8 @@ class JoyCaptionBetaOneProcessor(CommonModelProcessor):
             prompt = self.caption_type[caption_type_key][map_idx]
 
         if extra_options is not None:
-            extra, name_input = extra_options
+            extra = extra_options.get('options', [])
+            name_input = extra_options.get('name', "{NAME}")
             prompt += " " + " ".join(extra)
         else:
             name_input = "{NAME}"
@@ -245,9 +246,13 @@ class JoyCaptionBetaOneExtraOptions:
         required = {}
         for i in range(len(options)):
             required[f"option_{i}"] = (options,)
-        return {
-            "required": required
+        ret = {
+            "required": {
+                "name": ("STRING", {"default": "", "multiline": False}),
+            }
         }
+        ret["required"].update(required)
+        return ret
 
     RETURN_TYPES = ("Extra_Options",)
     RETURN_NAMES = ("extra_options",)
@@ -255,10 +260,12 @@ class JoyCaptionBetaOneExtraOptions:
     CATEGORY = "🌱SmellLargeModel/JoyCaptionBetaOne"
     DESCRIPTION = "JoyCaptionBetaOneExtraOptions"
 
-    def run(self, **kwargs):
+    def run(self, name, **kwargs):
+        ret = {}
+        ret['name'] = name
+        ret['options'] = []
         options_selected = list(kwargs.values())
-        values = []
         for selected in options_selected:
             if selected != "None":
-                values.append(self.extra_promt_map[selected])
-        return (values, )
+                 ret['options'].append(self.extra_promt_map[selected])
+        return (ret,)
